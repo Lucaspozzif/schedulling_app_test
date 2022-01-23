@@ -1,0 +1,26 @@
+[
+{
+    "nome":"Leandro Pozzi",
+    "funcao":"Cabeleireiro",
+    "avaliacao": 5,
+    "foto":"assets/perfil/man.png"
+},
+{
+    "nome":"Alessandro Pozzi",
+    "funcao":"Cabeleireiro",
+    "avaliacao": 5,
+    "foto":"assets/perfil/man.png"
+},
+{
+    "nome":"Flaviane Pozzi",
+    "funcao":"Manicure",
+    "avaliacao": 5,
+    "foto":"assets/perfil/man.png"
+},
+{
+    "nome":"Daniela Pozzi",
+    "funcao":"Sobrancelha",
+    "avaliacao": 5,
+    "foto":"assets/perfil/man.png"
+}
+]
