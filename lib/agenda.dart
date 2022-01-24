@@ -57,6 +57,7 @@ class EscolherProfissional extends StatefulWidget {
 }
 
 class _EscolherProfissionalState extends State<EscolherProfissional> {
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -77,13 +78,8 @@ class _EscolherProfissionalState extends State<EscolherProfissional> {
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.white)),
             onPressed: () {
-              agendando = {
-                "nome": "disponível",
-                "servico": "",
-                "valor": 0,
-                "data": []
-              };
               escolheuprofissional = true;
+
               Navigator.pushReplacement(
                 context,
                 PageRouteBuilder(
@@ -93,7 +89,6 @@ class _EscolherProfissionalState extends State<EscolherProfissional> {
                   transitionDuration: const Duration(milliseconds: 100),
                 ),
               );
-              setState(() {});
             },
             child: Row(children: [
               Icon(
@@ -122,7 +117,7 @@ class _EscolherProfissionalState extends State<EscolherProfissional> {
         ListView.builder(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
-            itemCount: data.length,
+            itemCount: workers.length,
             itemBuilder: (_, index) => Container(
                   padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
                   child: ElevatedButton(
@@ -130,14 +125,12 @@ class _EscolherProfissionalState extends State<EscolherProfissional> {
                         backgroundColor:
                             MaterialStateProperty.all(Colors.white)),
                     onPressed: () {
-                      agendando = {
-                        "nome": data[index]["nome"],
-                        "servico": "",
-                        "valor": 0,
-                        "data": []
-                      };
-                      servicos = data[index]["servicos"];
                       escolheuprofissional = true;
+                      schedule = {
+                        "name": workers[index]["name"],
+                        "service": "",
+                        "schedule": workers[index]["schedule"]
+                      };
                       Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
@@ -151,7 +144,7 @@ class _EscolherProfissionalState extends State<EscolherProfissional> {
                     },
                     child: Row(children: [
                       Image.asset(
-                        'assets/perfil/${data[index]["foto"]}',
+                        'assets/perfil/${workers[index]["perfil"]}',
                         width: 80,
                       ),
                       SizedBox(
@@ -160,11 +153,11 @@ class _EscolherProfissionalState extends State<EscolherProfissional> {
                       Column(
                         children: [
                           Text(
-                            data[index]["nome"],
+                            workers[index]["name"],
                             style: TextStyle(color: Colors.red, fontSize: 16),
                           ),
                           Text(
-                            data[index]["funcao"],
+                            workers[index]["job"],
                             style: TextStyle(color: Colors.black, fontSize: 12),
                           )
                         ],
@@ -202,14 +195,13 @@ class _EscolherServicoState extends State<EscolherServico> {
         ListView.builder(
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
-          itemCount: servicos.length,
+          itemCount: services.length,
           itemBuilder: (_, index) => Container(
             padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
             child: ElevatedButton(
               onPressed: () {
-                agendando["servico"] = servicos[index]["nome"];
-                agendando["valor"] = servicos[index]["valor"];
                 escolheuservico = true;
+                schedule["service"] = services[index]["name"];
                 Navigator.pushReplacement(
                   context,
                   PageRouteBuilder(
@@ -230,14 +222,14 @@ class _EscolherServicoState extends State<EscolherServico> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    servicos[index]["nome"],
+                    services[index]["name"],
                     style: TextStyle(fontSize: 30, color: Colors.red),
                   ),
                   SizedBox(
                     width: 30,
                   ),
                   Text(
-                    "R\$ ${servicos[index]["valor"]}",
+                    "R\$ ${services[index]["value"]}",
                     style: TextStyle(fontSize: 15, color: Colors.black),
                   )
                 ],
@@ -272,38 +264,44 @@ class _EscolherHorarioState extends State<EscolherHorario> {
         SizedBox(
           height: 30,
         ),
-        Text("Foi mal, ainda vou fazer esse aqui hehehe"),
-        Container(
-          padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
-          child: ElevatedButton(
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.white)),
-            onPressed: () {
-              escolheuprofissional = false;
-              escolheuservico = false;
-              Navigator.pushReplacement(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (c, a1, a2) => const Agenda(),
-                  transitionsBuilder: (c, anim, a2, child) =>
-                      FadeTransition(opacity: anim, child: child),
-                  transitionDuration: const Duration(milliseconds: 100),
-                ),
-              );
-              setState(() {});
-            },
-            child: Row(
-              children: [
-              Icon(
-                Icons.new_label_outlined,
-                size: 80,
-                color: Colors.black,
-              ),
-                Text("Agendar um novo serviço",style: TextStyle(color: Colors.black,fontSize: 20),)
-              ],
-            ),
-          ),
-        ),
+        ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: 24,
+            itemBuilder: (_, index) => Container(
+                  padding: EdgeInsets.fromLTRB(150, 30, 150, 0),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        primary: schedule["schedule"][index] ? Colors.red : Colors.white,
+                        fixedSize: Size(100, 60),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(300))
+                        ),
+                    onPressed: () {
+                      /*
+                      escolheuprofissional = true;
+                      Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (c, a1, a2) => const Agenda(),
+                          transitionsBuilder: (c, anim, a2, child) =>
+                              FadeTransition(opacity: anim, child: child),
+                          transitionDuration: const Duration(milliseconds: 100),
+                        ),
+                      );
+                      setState(() {});*/
+                    },
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            timer[index],
+                            style: TextStyle(color: Colors.red, fontSize: 30, ),
+                          )
+                          
+                        ],
+                      ),
+                    ),
+                )),
       ],
     );
   }

@@ -59,7 +59,10 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/json/profissionais.json
+    - assets/json/account.json
+    - assets/json/services.json
+    - assets/json/workers.json
+    
     - assets/icon/scissors.png
     - assets/icon/schedule.png
     - assets/perfil/man.png

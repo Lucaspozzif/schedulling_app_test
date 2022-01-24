@@ -1,0 +1,32 @@
+[
+    {
+        "name": "Corte",
+        "time": 30,
+        "value": 30
+    },
+    {
+        "name": "Coloração",
+        "time": 180,
+        "value": 200
+    },
+    {
+        "name": "Mechas",
+        "time": 120,
+        "value": 100
+    },
+    {
+        "name": "Alisamento",
+        "time": 30,
+        "value": 30
+    },
+    {
+        "name": "Escova",
+        "time": 180,
+        "value": 100
+    },
+    {
+        "name": "Relaxamento",
+        "time": 240,
+        "value": 200
+    }
+]

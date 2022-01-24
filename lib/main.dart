@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:leandro_e_alessandro/avaliacoes.dart';
 import 'package:leandro_e_alessandro/carrinho.dart';
 import 'package:leandro_e_alessandro/perfil.dart';
@@ -6,9 +9,12 @@ import 'receita.dart';
 import 'agenda.dart';
 import 'avaliacoes.dart';
 import 'funcoes.dart';
+
 void main() {
   runApp(MaterialApp(
-    home: Agenda(),
+    title: "Leandro e Alessandro",
+    debugShowCheckedModeBanner: false,
+    home: InicialPage(),
     theme: ThemeData(
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.white,
@@ -16,6 +22,69 @@ void main() {
       ),
     ),
   ));
+}
+
+class InicialPage extends StatefulWidget {
+  const InicialPage({Key? key}) : super(key: key);
+
+  @override
+  _InicialPageState createState() => _InicialPageState();
+}
+
+class _InicialPageState extends State<InicialPage> {
+  Future<void> workersJson() async {
+    final String response =
+        await rootBundle.loadString("assets/json/workers.json");
+    final data = await json.decode(response);
+    return workers = data;
+  }
+
+  Future<void> servicesJson() async {
+    final String response =
+        await rootBundle.loadString("assets/json/services.json");
+    final data = await json.decode(response);
+    return services = data;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: 
+              [ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
+                  fixedSize: Size(300, 80),
+                ),
+                child: 
+              Text(
+                  "Pular Login (debug)",style: TextStyle(color: Colors.red,fontSize: 30),),
+                onPressed: () {
+                  servicesJson();
+                  workersJson();
+                  Navigator.pushReplacement(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (c, a1, a2) => thisPage,
+                      transitionsBuilder: (c, anim, a2, child) =>
+                          FadeTransition(opacity: anim, child: child),
+                      transitionDuration: const Duration(milliseconds: 100),
+                    ),
+                  );
+                  
+                },
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class Menu extends StatefulWidget implements PreferredSizeWidget {
