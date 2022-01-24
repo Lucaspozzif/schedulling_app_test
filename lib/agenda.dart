@@ -1,7 +1,6 @@
+import 'funcoes.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
-
-bool escolheuprofissional = false;
 
 class Agenda extends StatefulWidget {
   const Agenda({Key? key}) : super(key: key);
@@ -16,7 +15,7 @@ class _AgendaState extends State<Agenda> {
     return Scaffold(
       appBar: Menu(),
       body: Scaffold(
-        appBar: MenuAbrir(),
+        appBar: appbar ? MenuAbrir() : null,
         body: Center(
           child: SingleChildScrollView(
             child: Column(
@@ -33,18 +32,10 @@ class _AgendaState extends State<Agenda> {
                       width: 150,
                       height: 150,
                     )),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Escolha um Serviço",
-                  style: TextStyle(fontSize: 20),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
                 escolheuprofissional
-                    ? EscolherServico()
+                    ? escolheuservico
+                        ? EscolherHorario()
+                        : EscolherServico()
                     : EscolherProfissional(),
                 SizedBox(
                   height: 60,
@@ -70,20 +61,38 @@ class _EscolherProfissionalState extends State<EscolherProfissional> {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SizedBox(
+          height: 20,
+        ),
+        Text(
+          "Escolha um Profissional",
+          style: TextStyle(fontSize: 20),
+        ),
+        SizedBox(
+          height: 30,
+        ),
         Container(
           padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
           child: ElevatedButton(
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.white)),
             onPressed: () {
+              agendando = {
+                "nome": "disponível",
+                "servico": "",
+                "valor": 0,
+                "data": []
+              };
               escolheuprofissional = true;
-              Navigator.pushReplacement(context, PageRouteBuilder(
-                        pageBuilder: (c, a1, a2) => const Agenda(),
-                        transitionsBuilder: (c, anim, a2, child) =>
-                            FadeTransition(opacity: anim, child: child),
-                        transitionDuration: const Duration(milliseconds: 100),
-                      ),
-                      );
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => const Agenda(),
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  transitionDuration: const Duration(milliseconds: 100),
+                ),
+              );
               setState(() {});
             },
             child: Row(children: [
@@ -110,118 +119,61 @@ class _EscolherProfissionalState extends State<EscolherProfissional> {
             ]),
           ),
         ),
-        Profissionais(),
+        ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            itemCount: data.length,
+            itemBuilder: (_, index) => Container(
+                  padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.white)),
+                    onPressed: () {
+                      agendando = {
+                        "nome": data[index]["nome"],
+                        "servico": "",
+                        "valor": 0,
+                        "data": []
+                      };
+                      servicos = data[index]["servicos"];
+                      escolheuprofissional = true;
+                      Navigator.pushReplacement(
+                        context,
+                        PageRouteBuilder(
+                          pageBuilder: (c, a1, a2) => const Agenda(),
+                          transitionsBuilder: (c, anim, a2, child) =>
+                              FadeTransition(opacity: anim, child: child),
+                          transitionDuration: const Duration(milliseconds: 100),
+                        ),
+                      );
+                      setState(() {});
+                    },
+                    child: Row(children: [
+                      Image.asset(
+                        'assets/perfil/${data[index]["foto"]}',
+                        width: 80,
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      Column(
+                        children: [
+                          Text(
+                            data[index]["nome"],
+                            style: TextStyle(color: Colors.red, fontSize: 16),
+                          ),
+                          Text(
+                            data[index]["funcao"],
+                            style: TextStyle(color: Colors.black, fontSize: 12),
+                          )
+                        ],
+                      ),
+                    ]),
+                  ),
+                ))
       ],
     );
-  }
-}
-
-class Profissionais extends StatefulWidget {
-  const Profissionais({Key? key}) : super(key: key);
-
-  @override
-  _ProfissionaisState createState() => _ProfissionaisState();
-}
-
-class _ProfissionaisState extends State<Profissionais> {
-  List data = [
-    {
-      "nome": "Leandro Pozzi",
-      "funcao": "Cabeleireiro",
-      "avaliacao": 5,
-      "foto": "man.png",
-      "servicos": [
-        {"nome": "Corte", "valor": 50.09},
-        {"nome": "Escova", "valor": 400}
-      ],
-    },
-    {
-      "nome": "Alessandro Pozzi",
-      "funcao": "Escovista",
-      "avaliacao": 4.5,
-      "foto": "man (1).png",
-      "servicos": [
-        {"nome": "Corte", "valor": 50.09},
-        {"nome": "Escova", "valor": 400}
-      ],
-    },
-    {
-      "nome": "Daniela Pozzi",
-      "funcao": "Manicure",
-      "avaliacao": 5,
-      "foto": "woman (2).png",
-      "servicos": [
-        {"nome": "Corte", "valor": 50.09},
-        {"nome": "Escova", "valor": 400}
-      ],
-    },
-    {
-      "nome": "Flaviane Pozzi",
-      "funcao": "Sobrancelha",
-      "avaliacao": 4,
-      "foto": "woman.png",
-      "servicos": [
-        {"nome": "Corte", "valor": 50.09},
-        {"nome": "Escova", "valor": 400}
-      ],
-    },
-    {
-      "nome": "Adelice",
-      "funcao": "Cabeleireiro",
-      "avaliacao": 4,
-      "foto": "woman (1).png",
-      "servicos": [
-        {"nome": "Corte", "valor": 50.09},
-        {"nome": "Escova", "valor": 400}
-      ],
-    },
-    {
-      "nome": "Laércio",
-      "funcao": "Cabeleireiro",
-      "avaliacao": 5,
-      "foto": "man (3).png",
-      "servicos": [
-        {"nome": "Corte", "valor": 50.09},
-        {"nome": "Escova", "valor": 400}
-      ],
-    },
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
-        itemCount: data.length,
-        itemBuilder: (_, index) => Container(
-              padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
-              child: ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.white)),
-                onPressed: () {},
-                child: Row(children: [
-                  Image.asset(
-                    'assets/perfil/${data[index]["foto"]}',
-                    width: 80,
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        data[index]["nome"],
-                        style: TextStyle(color: Colors.red, fontSize: 16),
-                      ),
-                      Text(
-                        data[index]["funcao"],
-                        style: TextStyle(color: Colors.black, fontSize: 12),
-                      )
-                    ],
-                  ),
-                ]),
-              ),
-            ));
   }
 }
 
@@ -237,29 +189,121 @@ class _EscolherServicoState extends State<EscolherServico> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-                fixedSize: Size(300, 60),
-                primary: Colors.white,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(100))),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+        SizedBox(
+          height: 20,
+        ),
+        Text(
+          "Escolha um Serviço",
+          style: TextStyle(fontSize: 20),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        ListView.builder(
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemCount: servicos.length,
+          itemBuilder: (_, index) => Container(
+            padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
+            child: ElevatedButton(
+              onPressed: () {
+                agendando["servico"] = servicos[index]["nome"];
+                agendando["valor"] = servicos[index]["valor"];
+                escolheuservico = true;
+                Navigator.pushReplacement(
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (c, a1, a2) => const Agenda(),
+                    transitionsBuilder: (c, anim, a2, child) =>
+                        FadeTransition(opacity: anim, child: child),
+                    transitionDuration: const Duration(milliseconds: 100),
+                  ),
+                );
+                setState(() {});
+              },
+              style: ElevatedButton.styleFrom(
+                  fixedSize: Size(300, 60),
+                  primary: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100))),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    servicos[index]["nome"],
+                    style: TextStyle(fontSize: 30, color: Colors.red),
+                  ),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Text(
+                    "R\$ ${servicos[index]["valor"]}",
+                    style: TextStyle(fontSize: 15, color: Colors.black),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class EscolherHorario extends StatefulWidget {
+  const EscolherHorario({Key? key}) : super(key: key);
+
+  @override
+  _EscolherHorarioState createState() => _EscolherHorarioState();
+}
+
+class _EscolherHorarioState extends State<EscolherHorario> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 20,
+        ),
+        Text(
+          "Escolha um Horário",
+          style: TextStyle(fontSize: 20),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        Text("Foi mal, ainda vou fazer esse aqui hehehe"),
+        Container(
+          padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
+          child: ElevatedButton(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.white)),
+            onPressed: () {
+              escolheuprofissional = false;
+              escolheuservico = false;
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => const Agenda(),
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  transitionDuration: const Duration(milliseconds: 100),
+                ),
+              );
+              setState(() {});
+            },
+            child: Row(
               children: [
-                Text(
-                  "Escova",
-                  style: TextStyle(fontSize: 30, color: Colors.red),
-                ),
-                SizedBox(
-                  width: 30,
-                ),
-                Text(
-                  "R\$ 200,00",
-                  style: TextStyle(fontSize: 15, color: Colors.black),
-                )
+              Icon(
+                Icons.new_label_outlined,
+                size: 80,
+                color: Colors.black,
+              ),
+                Text("Agendar um novo serviço",style: TextStyle(color: Colors.black,fontSize: 20),)
               ],
-            )),
+            ),
+          ),
+        ),
       ],
     );
   }

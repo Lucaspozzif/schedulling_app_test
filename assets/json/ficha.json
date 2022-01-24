@@ -1,0 +1,58 @@
+[
+    {
+        "email": {
+            "senha": "password1234",
+            "agendando": {
+                "nome": "Leandro Pozzi",
+                "servico": "Corte",
+                "valor": 30,
+                "data": [
+                    [
+                        2022,
+                        1,
+                        30,
+                        14,
+                        30
+                    ],
+                    [
+                        2022,
+                        1,
+                        30,
+                        15,
+                        0
+                    ]
+                ]
+            },
+            "agendados": [
+                3452345
+            ]
+        }
+    },
+    {
+        "email": {
+            "senha": "qwerty1234",
+            "agenda": {
+                "0001": {
+                    "servico": "Corte",
+                    "valor": 30,
+                    "data": [
+                        [
+                            2022,
+                            1,
+                            30,
+                            14,
+                            30
+                        ],
+                        [
+                            2022,
+                            1,
+                            30,
+                            15,
+                            0
+                        ]
+                    ]
+                }
+            }
+        }
+    }
+]

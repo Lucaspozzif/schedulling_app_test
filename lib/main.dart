@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:leandro_e_alessandro/avaliacoes.dart';
+import 'package:leandro_e_alessandro/carrinho.dart';
+import 'package:leandro_e_alessandro/perfil.dart';
+import 'receita.dart';
 import 'agenda.dart';
-
+import 'avaliacoes.dart';
+import 'funcoes.dart';
 void main() {
   runApp(MaterialApp(
     home: Agenda(),
@@ -12,9 +17,6 @@ void main() {
     ),
   ));
 }
-
-
-
 
 class Menu extends StatefulWidget implements PreferredSizeWidget {
   const Menu({Key? key}) : super(key: key);
@@ -31,7 +33,20 @@ class _MenuState extends State<Menu> {
   Widget build(BuildContext context) {
     return AppBar(
       actions: <Widget>[
-        IconButton(onPressed: () {}, icon: Icon(Icons.view_headline)),
+        IconButton(
+            onPressed: () {
+              appbar = !appbar;
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => thisPage,
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  transitionDuration: const Duration(milliseconds: 100),
+                ),
+              );
+            },
+            icon: Icon(Icons.view_headline)),
         Spacer(),
         Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text(
@@ -46,7 +61,21 @@ class _MenuState extends State<Menu> {
             SizedBox(
               width: 20,
             ),
-            IconButton(onPressed: () {}, icon: Icon(Icons.shopping_bag))
+            IconButton(
+                onPressed: () {
+                  appbar = false;
+                  thisPage = Carrinho();
+                  Navigator.pushReplacement(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (c, a1, a2) => const Carrinho(),
+                      transitionsBuilder: (c, anim, a2, child) =>
+                          FadeTransition(opacity: anim, child: child),
+                      transitionDuration: const Duration(milliseconds: 100),
+                    ),
+                  );
+                },
+                icon: Icon(Icons.shopping_bag))
           ],
         ),
       ],
@@ -73,16 +102,72 @@ class _MenuAbrirState extends State<MenuAbrir> {
         SizedBox(
           width: 30,
         ),
-        IconButton(onPressed: () {}, icon: Icon(Icons.schedule)),
+        IconButton(
+            onPressed: () {
+              appbar = !appbar;
+              thisPage = Agenda();
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => const Agenda(),
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  transitionDuration: const Duration(milliseconds: 100),
+                ),
+              );
+            },
+            icon: Icon(Icons.schedule)),
         Spacer(),
         //Avaliação de serviços
-        IconButton(onPressed: () {}, icon: Icon(Icons.star)),
+        IconButton(
+            onPressed: () {
+              appbar = !appbar;
+              thisPage = Avaliacoes();
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => const Avaliacoes(),
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  transitionDuration: const Duration(milliseconds: 100),
+                ),
+              );
+            },
+            icon: Icon(Icons.star)),
         Spacer(),
         //pagamento e valores
-        IconButton(onPressed: () {}, icon: Icon(Icons.credit_card)),
+        IconButton(
+            onPressed: () {
+              thisPage = Receita();
+              appbar = !appbar;
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => const Receita(),
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  transitionDuration: const Duration(milliseconds: 100),
+                ),
+              );
+            },
+            icon: Icon(Icons.credit_card)),
         Spacer(),
         //Meu perfil
-        IconButton(onPressed: () {}, icon: Icon(Icons.account_circle)),
+        IconButton(
+            onPressed: () {
+              thisPage = Perfil();
+              appbar = !appbar;
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => const Perfil(),
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  transitionDuration: const Duration(milliseconds: 100),
+                ),
+              );
+            },
+            icon: Icon(Icons.account_circle)),
         SizedBox(
           width: 30,
         ),
