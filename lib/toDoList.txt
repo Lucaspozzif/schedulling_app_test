@@ -1,2 +1,7 @@
-- Fazer com que os horários marcados sejam salvos
+
 - Fazer os horários variarem dependendo do serviço
+- implementar jsons entre celulares
+- ativar mais de um dia possível para agendar
+- implementar login
+- Página de compras
+- modo escuro

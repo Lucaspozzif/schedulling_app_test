@@ -18,7 +18,7 @@ void main() {
     theme: ThemeData(
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.white,
-        foregroundColor: Colors.red,
+        foregroundColor: Colors.black,
       ),
     ),
   ));
@@ -54,16 +54,18 @@ class _InicialPageState extends State<InicialPage> {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: 
-              [ElevatedButton(
+            children: [
+              ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-                  fixedSize: Size(300, 80),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40)),
+                  fixedSize: Size(250, 80),
                 ),
-                child: 
-              Text(
-                  "Pular Login (debug)",style: TextStyle(color: Colors.red,fontSize: 30),),
+                child: Text(
+                  "Pular Login (debug)",
+                  style: TextStyle(color: Colors.black, fontSize: 20),
+                ),
                 onPressed: () {
                   servicesJson();
                   workersJson();
@@ -76,7 +78,6 @@ class _InicialPageState extends State<InicialPage> {
                       transitionDuration: const Duration(milliseconds: 100),
                     ),
                   );
-                  
                 },
               ),
             ],
@@ -100,54 +101,51 @@ class Menu extends StatefulWidget implements PreferredSizeWidget {
 class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      actions: <Widget>[
-        IconButton(
-            onPressed: () {
-              appbar = !appbar;
-              Navigator.pushReplacement(
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (c, a1, a2) => thisPage,
-                  transitionsBuilder: (c, anim, a2, child) =>
-                      FadeTransition(opacity: anim, child: child),
-                  transitionDuration: const Duration(milliseconds: 100),
+    return Container(
+      color: Colors.white,
+      child: Column(
+        children: [
+          SizedBox(height: 10),
+          Row(
+            children: [
+              SizedBox(
+                width: 10,
+              ),
+              Column(
+                children: [
+                  Text(
+                    "Próximo serviço",
+                    style: TextStyle(fontSize: 16),
+                  ),
+                  Text(
+                    "Nenhum",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
+              Spacer(),
+              ElevatedButton(
+                onPressed: () {},
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.purple.shade100,
+                  fixedSize: Size(100, 20),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                 ),
-              );
-            },
-            icon: Icon(Icons.view_headline)),
-        Spacer(),
-        Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text(
-            "Leandro e Alessandro",
-            style: TextStyle(fontSize: 20),
-          )
-        ]),
-        Spacer(),
-        Row(
-          children: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
-            SizedBox(
-              width: 20,
-            ),
-            IconButton(
-                onPressed: () {
-                  appbar = false;
-                  thisPage = Carrinho();
-                  Navigator.pushReplacement(
-                    context,
-                    PageRouteBuilder(
-                      pageBuilder: (c, a1, a2) => const Carrinho(),
-                      transitionsBuilder: (c, anim, a2, child) =>
-                          FadeTransition(opacity: anim, child: child),
-                      transitionDuration: const Duration(milliseconds: 100),
-                    ),
-                  );
-                },
-                icon: Icon(Icons.shopping_bag))
-          ],
-        ),
-      ],
+                child: Text(
+                  "Agenda",
+                  style: TextStyle(color: Colors.black54, fontSize: 16),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              )
+            ],
+          ),
+          SizedBox(height: 10),
+        ],
+      ),
     );
   }
 }
@@ -165,7 +163,76 @@ class MenuAbrir extends StatefulWidget implements PreferredSizeWidget {
 class _MenuAbrirState extends State<MenuAbrir> {
   @override
   Widget build(BuildContext context) {
-    return AppBar(
+    return BottomAppBar(
+      notchMargin: 4,
+      shape: CircularNotchedRectangle(),
+      color: Colors.white,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          IconButton(
+            onPressed: () {
+              thisPage = Perfil();
+              appbar = !appbar;
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => const Perfil(),
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  transitionDuration: const Duration(milliseconds: 100),
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.account_circle,
+              color: Colors.purple.shade100,
+            ),
+          ),
+          Expanded(
+            child: SizedBox(),
+          ),
+          IconButton(
+            onPressed: () {
+              appbar = !appbar;
+              thisPage = Avaliacoes();
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => const Avaliacoes(),
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  transitionDuration: const Duration(milliseconds: 100),
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.star,
+              color: Colors.purple.shade100,
+            ),
+          ),
+          IconButton(
+            onPressed: () {
+              thisPage = Receita();
+              appbar = !appbar;
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => const Receita(),
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  transitionDuration: const Duration(milliseconds: 100),
+                ),
+              );
+            },
+            icon: Icon(
+              Icons.credit_card,
+              color: Colors.purple.shade100,
+            ),
+          ),
+        ],
+      ), /*
+        appBar: AppBar(
       actions: [
         //Menumento
         SizedBox(
@@ -236,11 +303,12 @@ class _MenuAbrirState extends State<MenuAbrir> {
                 ),
               );
             },
-            icon: Icon(Icons.account_circle)),
+            icon: Icon(Icons.account_circle),),
         SizedBox(
           width: 30,
         ),
       ],
+    )*/
     );
   }
 }

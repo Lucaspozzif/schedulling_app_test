@@ -1,10 +1,10 @@
+import 'agenda.dart';
 import 'main.dart';
 import 'package:flutter/material.dart';
 import 'funcoes.dart';
 
-
 class Perfil extends StatefulWidget {
-  const Perfil({ Key? key }) : super(key: key);
+  const Perfil({Key? key}) : super(key: key);
 
   @override
   _PerfilState createState() => _PerfilState();
@@ -14,28 +14,82 @@ class _PerfilState extends State<Perfil> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Menu(),
-      body: Scaffold(
-        appBar: appbar ? MenuAbrir() : null,
-        body: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Padding(padding: EdgeInsets.only(top: 60)),
-                Text(
-                  "Entre na sua conta",
-                  style: TextStyle(fontSize: 25, color: Colors.red),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.purple.shade100,
+          onPressed: () {
+            appbar = !appbar;
+            thisPage = Agenda();
+            Navigator.pushReplacement(
+              context,
+              PageRouteBuilder(
+                pageBuilder: (c, a1, a2) => const Agenda(),
+                transitionsBuilder: (c, anim, a2, child) =>
+                    FadeTransition(opacity: anim, child: child),
+                transitionDuration: const Duration(milliseconds: 100),
+              ),
+            );
+          },
+          child: Icon(
+            Icons.schedule,
+            color: Colors.black54,
+          )),
+      bottomNavigationBar: MenuAbrir(),
+      body: SingleChildScrollView(
+        physics: ScrollPhysics(),
+        child: Container(
+          color: Colors.purple.shade100,
+          child: Column(
+            children: [
+              Menu(),
+              SizedBox(
+                height: 60,
+              ),
+              Icon(
+                Icons.account_circle,
+                size: 150,
+                color: Colors.black54,
+              ),
+              SizedBox(
+                height: 60,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.white70,
+                    fixedSize: Size(100, 40),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40))),
+                onPressed: () {},
+                child: Text(
+                  "Entrar",
+                  style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600),
                 ),
-                Container(
-                    padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                    child: Icon(Icons.person_add_alt_rounded,size: 150, color: Colors.black,)
-                    ),
-                SizedBox(
-                  height: 60,
+              ),
+              SizedBox(width: 20,),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                    primary: Colors.white70,
+                    fixedSize: Size(100, 40),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40))),
+                onPressed: () {},
+                child: Text(
+                  "Login",
+                  style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600),
                 ),
-                Text("Ou crie caso ainda não tenha uma"),
-              ],
-            ),
+              ),],
+              ),
+              SizedBox(height: 400,)
+              
+            ],
           ),
         ),
       ),
