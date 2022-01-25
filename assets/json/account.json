@@ -1,5 +1,8 @@
 {
     "email@gmail.com":{
-        "password":"qwerty1234"
+        "password":"qwerty1234",
+        "rates":{},
+        "schedule":{}
+        
     }
 }

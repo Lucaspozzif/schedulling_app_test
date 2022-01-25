@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'funcoes.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
@@ -32,9 +34,11 @@ class _AgendaState extends State<Agenda> {
                       width: 150,
                       height: 150,
                     )),
-                escolheuprofissional
-                    ? escolheuservico
-                        ? EscolherHorario()
+                choosedWorker
+                    ? choosedService
+                        ? choosedTime
+                            ? FinishedSchedule()
+                            : EscolherHorario()
                         : EscolherServico()
                     : EscolherProfissional(),
                 SizedBox(
@@ -57,7 +61,6 @@ class EscolherProfissional extends StatefulWidget {
 }
 
 class _EscolherProfissionalState extends State<EscolherProfissional> {
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -78,8 +81,15 @@ class _EscolherProfissionalState extends State<EscolherProfissional> {
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.white)),
             onPressed: () {
-              escolheuprofissional = true;
-
+              choosedWorker = true;
+              int num = Random().nextInt(workers.length);
+              schedule = {
+                "name": workers[num]["name"],
+                "perfil": workers[num]["perfil"],
+                "service": "",
+                "schedule": workers[num]["schedule"],
+                "timeIndex": ""
+              };
               Navigator.pushReplacement(
                 context,
                 PageRouteBuilder(
@@ -125,11 +135,15 @@ class _EscolherProfissionalState extends State<EscolherProfissional> {
                         backgroundColor:
                             MaterialStateProperty.all(Colors.white)),
                     onPressed: () {
-                      escolheuprofissional = true;
+                      choosedWorker = true;
                       schedule = {
                         "name": workers[index]["name"],
+                        "perfil": workers[index]["perfil"],
                         "service": "",
-                        "schedule": workers[index]["schedule"]
+                        "schedule": workers[index]["schedule"],
+                        "timeIndex": "",
+                        "colors": [],
+                        "rate":1
                       };
                       Navigator.pushReplacement(
                         context,
@@ -200,7 +214,7 @@ class _EscolherServicoState extends State<EscolherServico> {
             padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
             child: ElevatedButton(
               onPressed: () {
-                escolheuservico = true;
+                choosedService = true;
                 schedule["service"] = services[index]["name"];
                 Navigator.pushReplacement(
                   context,
@@ -272,13 +286,16 @@ class _EscolherHorarioState extends State<EscolherHorario> {
                   padding: EdgeInsets.fromLTRB(150, 30, 150, 0),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        primary: schedule["schedule"][index] ? Colors.red : Colors.white,
+                        primary: schedule["schedule"][index]
+                            ? Colors.red
+                            : Colors.white,
                         fixedSize: Size(100, 60),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(300))
-                        ),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(300))),
                     onPressed: () {
-                      /*
-                      escolheuprofissional = true;
+                      if (schedule["schedule"][index] == true) return;
+                      choosedTime = true;
+                      schedule["timeIndex"] = index;
                       Navigator.pushReplacement(
                         context,
                         PageRouteBuilder(
@@ -288,20 +305,173 @@ class _EscolherHorarioState extends State<EscolherHorario> {
                           transitionDuration: const Duration(milliseconds: 100),
                         ),
                       );
-                      setState(() {});*/
+                      setState(() {});
                     },
                     child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          timer[index],
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 30,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                )),
+      ],
+    );
+  }
+}
+
+class FinishedSchedule extends StatefulWidget {
+  const FinishedSchedule({Key? key}) : super(key: key);
+
+  @override
+  _FinishedScheduleState createState() => _FinishedScheduleState();
+}
+
+class _FinishedScheduleState extends State<FinishedSchedule> {
+  List colors = [
+    Random().nextInt(randomColors.length),
+    Random().nextInt(randomColors.length)
+  ];
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          height: 20,
+        ),
+        Text(
+          "Agendamento completo",
+          style: TextStyle(fontSize: 20),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+        Container(
+          height: 120,
+          margin: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+            gradient: LinearGradient(
+                colors: [randomColors[colors[0]], randomColors[colors[1]]],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                tileMode: TileMode.clamp),
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Stack(
+                children: [
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Image.asset(
+                        'assets/perfil/${schedule["perfil"]}',
+                        width: 100,
+                        height: 100,
+                      ),
+                      Spacer(),
+                      SizedBox(
+                        width: 10,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 1,
+                      ),
+                      Spacer(),
+                      IconButton(
+                        onPressed: () {},
+                        icon: Icon(Icons.delete),
+                        color: Colors.red,
+                        iconSize: 30,
+                      ),
+                      SizedBox(
+                        width: 20,
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Column(
                         children: [
                           Text(
-                            timer[index],
-                            style: TextStyle(color: Colors.red, fontSize: 30, ),
-                          )
-                          
+                            "${schedule["name"]}",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                          Text(
+                            timer[schedule["timeIndex"]],
+                            style: TextStyle(color: Colors.white, fontSize: 30),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(schedule["service"],
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 25))
                         ],
-                      ),
-                    ),
-                )),
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.fromLTRB(20, 30, 20, 0),
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(40))),
+            onPressed: () {
+              choosedWorker = false;
+              choosedService = false;
+              choosedTime = false;
+              schedule["colors"] = colors;
+              scheduled.add(schedule);
+              Navigator.pushReplacement(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (c, a1, a2) => const Agenda(),
+                  transitionsBuilder: (c, anim, a2, child) =>
+                      FadeTransition(opacity: anim, child: child),
+                  transitionDuration: const Duration(milliseconds: 100),
+                ),
+              );
+            },
+            child: Row(children: [
+              Icon(
+                Icons.person_add,
+                size: 80,
+                color: Colors.black,
+              ),
+              SizedBox(
+                width: 30,
+              ),
+              Column(
+                children: [
+                  Text(
+                    "Concluido",
+                    style: TextStyle(color: Colors.white, fontSize: 30),
+                  ),
+                ],
+              ),
+            ]),
+          ),
+        ),
       ],
     );
   }

@@ -11,8 +11,9 @@ import 'main.dart';
 import 'perfil.dart';
 import 'receita.dart';
 
-bool escolheuprofissional = false;
-bool escolheuservico = false;
+bool choosedWorker = false;
+bool choosedService = false;
+bool choosedTime = false;
 bool appbar = false;
 
 Widget thisPage = Perfil();
@@ -20,6 +21,7 @@ Widget thisPage = Perfil();
 List services = [];
 List workers = [];
 dynamic schedule = [];
+List scheduled = [];
 
 List timer = [
   "8:00",
@@ -47,4 +49,11 @@ List timer = [
   "19:00",
   "19:30",
   "20:00",
+];
+List randomColors = [Colors.blue,
+Colors.red,
+Colors.yellow,
+Colors.green,
+Colors.purple,
+Colors.orange,
 ];
