@@ -7,6 +7,7 @@ import 'package:leandro_e_alessandro/carrinho.dart';
 import 'package:leandro_e_alessandro/perfil.dart';
 import 'receita.dart';
 import 'agenda.dart';
+import 'dart:io';
 import 'avaliacoes.dart';
 import 'funcoes.dart';
 
@@ -46,6 +47,13 @@ class _InicialPageState extends State<InicialPage> {
     return services = data;
   }
 
+  Future<void> productsJson() async {
+    final String response =
+        await rootBundle.loadString("assets/json/products.json");
+    final data = await json.decode(response);
+    return products = data;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +65,7 @@ class _InicialPageState extends State<InicialPage> {
             children: [
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.white,
+                  primary: Colors.purple.shade100,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40)),
                   fixedSize: Size(250, 80),
@@ -69,10 +77,11 @@ class _InicialPageState extends State<InicialPage> {
                 onPressed: () {
                   servicesJson();
                   workersJson();
+                  productsJson();
                   Navigator.pushReplacement(
                     context,
                     PageRouteBuilder(
-                      pageBuilder: (c, a1, a2) => thisPage,
+                      pageBuilder: (c, a1, a2) => Registro(),
                       transitionsBuilder: (c, anim, a2, child) =>
                           FadeTransition(opacity: anim, child: child),
                       transitionDuration: const Duration(milliseconds: 100),
@@ -118,14 +127,24 @@ class _MenuState extends State<Menu> {
                     style: TextStyle(fontSize: 16),
                   ),
                   Text(
-                    "Nenhum",
+                    scheduledActive ? getTime() : "Nenhum",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                   ),
                 ],
               ),
               Spacer(),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (c, a1, a2) => Registro(),
+                      transitionsBuilder: (c, anim, a2, child) =>
+                          FadeTransition(opacity: anim, child: child),
+                      transitionDuration: const Duration(milliseconds: 100),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   primary: Colors.purple.shade100,
                   fixedSize: Size(100, 20),
@@ -226,7 +245,7 @@ class _MenuAbrirState extends State<MenuAbrir> {
               );
             },
             icon: Icon(
-              Icons.credit_card,
+              Icons.payments,
               color: Colors.purple.shade100,
             ),
           ),

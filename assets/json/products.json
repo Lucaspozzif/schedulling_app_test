@@ -1,0 +1,135 @@
+{
+    "shampoo":[
+        {
+            "name":"Shampoo A",
+            "description":"Um bom shampoo para carecas",
+            "value":30,
+            "perfil":"shampoo.png"
+        },
+        {
+            "name":"Shampoo B",
+            "description":"Um bom shampoo para cabeludos",
+            "value":70,
+            "perfil":"shampoo (1).png"
+        },
+        {
+            "name":"Shampoo A",
+            "description":"Um bom shampoo para carecas",
+            "value":30,
+            "perfil":"shampoo.png"
+        },
+        {
+            "name":"Shampoo B",
+            "description":"Um bom shampoo para cabeludos",
+            "value":70,
+            "perfil":"shampoo (1).png"
+        },
+        {
+            "name":"Shampoo A",
+            "description":"Um bom shampoo para carecas",
+            "value":30,
+            "perfil":"shampoo.png"
+        },
+        {
+            "name":"Shampoo B",
+            "description":"Um bom shampoo para cabeludos",
+            "value":70,
+            "perfil":"shampoo (1).png"
+        },
+        {
+            "name":"Shampoo A",
+            "description":"Um bom shampoo para carecas",
+            "value":30,
+            "perfil":"shampoo.png"
+        },
+        {
+            "name":"Shampoo B",
+            "description":"Um bom shampoo para cabeludos",
+            "value":70,
+            "perfil":"shampoo (1).png"
+        },
+        {
+            "name":"Shampoo A",
+            "description":"Um bom shampoo para carecas",
+            "value":30,
+            "perfil":"shampoo.png"
+        },
+        {
+            "name":"Shampoo B",
+            "description":"Um bom shampoo para cabeludos",
+            "value":70,
+            "perfil":"shampoo (1).png"
+        },
+        
+        {
+            "name":"Shampoo C",
+            "description":"Um bom shampoo para pessoas altas",
+            "value":20,
+            "perfil":"shampoo (2).png"
+        },
+        
+        {
+            "name":"Shampoo D",
+            "description":"Um bom shampoo para cachorros e gatos",
+            "value":10,
+            "perfil":"shampoo (3).png"
+        }
+    ],
+    "condicionador":[
+        {
+            "name":"Condicionador A",
+            "description":"Um bom shampoo para carecas",
+            "value":30,
+            "perfil":"shampoo (4).png"
+        },
+        {
+            "name":"Condicionador B",
+            "description":"Um bom shampoo para cabeludos",
+            "value":70,
+            "perfil":"shampoo (5).png"
+        },
+        
+        {
+            "name":"Condicionador C",
+            "description":"Um bom shampoo para pessoas altas",
+            "value":20,
+            "perfil":"shampoo (6).png"
+        },
+        
+        {
+            "name":"Condicionador D",
+            "description":"Um bom shampoo para cachorros e gatos",
+            "value":10,
+            "perfil":"pet-shampoo.png"
+        }
+    ],
+    "mascara":[
+
+        {
+            "name":"Máscara A",
+            "description":"Um bom shampoo para carecas",
+            "value":30,
+            "perfil":"shampoo.png"
+        },
+        {
+            "name":"Máscara B",
+            "description":"Um bom shampoo para cabeludos",
+            "value":70,
+            "perfil":"shampoo.png"
+        },
+        
+        {
+            "name":"Máscara C",
+            "description":"Um bom shampoo para pessoas altas",
+            "value":20,
+            "perfil":"shampoo.png"
+        },
+        
+        {
+            "name":"Máscara D",
+            "description":"Um bom shampoo para cachorros e gatos",
+            "value":10,
+            "perfil":"shampoo.png"
+        }
+    ]
+}

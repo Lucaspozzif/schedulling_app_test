@@ -1,7 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 import 'funcoes.dart';
 import 'package:flutter/material.dart';
 import 'main.dart';
+import 'package:path_provider/path_provider.dart';
 
 class Agenda extends StatefulWidget {
   const Agenda({Key? key}) : super(key: key);
@@ -35,22 +38,24 @@ class _AgendaState extends State<Agenda> {
             color: Colors.black54,
           )),
       bottomNavigationBar: MenuAbrir(),
-      body: SingleChildScrollView(
-        physics: ScrollPhysics(),
-        child: Container(
-          color: Colors.purple.shade100,
-          child: Column(
-            children: [
-              Menu(),
-              choosedWorker
-                  ? choosedService
-                      ? choosedTime
-                          ? FinishedSchedule()
-                          : EscolherHorario()
-                      : EscolherServico()
-                  : EscolherProfissional(),
-              SizedBox(height: 500),
-            ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: ScrollPhysics(),
+          child: Container(
+            color: Colors.purple.shade100,
+            child: Column(
+              children: [
+                Menu(),
+                choosedWorker
+                    ? choosedService
+                        ? choosedTime
+                            ? FinishedSchedule()
+                            : EscolherHorario()
+                        : EscolherServico()
+                    : EscolherProfissional(),
+                SizedBox(height: 600),
+              ],
+            ),
           ),
         ),
       ),
@@ -347,10 +352,6 @@ class FinishedSchedule extends StatefulWidget {
 }
 
 class _FinishedScheduleState extends State<FinishedSchedule> {
-  List colors = [
-    Random().nextInt(randomColors.length),
-    Random().nextInt(randomColors.length)
-  ];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -455,13 +456,14 @@ class _FinishedScheduleState extends State<FinishedSchedule> {
                   fixedSize: Size(130, 40),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(40))),
-              onPressed: () {
+              onPressed: () async {
                 choosedWorker = false;
                 choosedService = false;
                 choosedTime = false;
                 scheduled.add(schedule);
                 workers[schedule["workerIndex"]]["schedule"]
                     [schedule["timeIndex"]] = true;
+                scheduledActive = true;
                 Navigator.pushReplacement(
                   context,
                   PageRouteBuilder(

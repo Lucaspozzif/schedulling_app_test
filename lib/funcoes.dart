@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,14 +16,17 @@ bool choosedWorker = false;
 bool choosedService = false;
 bool choosedTime = false;
 bool appbar = false;
+bool scheduledActive = false;
 
 Widget thisPage = Perfil();
 
 List services = [];
 List workers = [];
+dynamic products = [];
 dynamic schedule = [];
 List scheduled = [];
 
+List list = [];
 List timer = [
   "8:00",
   "8:30",
@@ -50,10 +54,20 @@ List timer = [
   "19:30",
   "20:00",
 ];
-List randomColors = [Colors.blue,
-Colors.red,
-Colors.yellow,
-Colors.green,
-Colors.purple,
-Colors.orange,
+List randomColors = [
+  Colors.blue,
+  Colors.red,
+  Colors.yellow,
+  Colors.green,
+  Colors.purple,
+  Colors.orange,
 ];
+
+getTime() {
+  if (scheduled.length == 0) return "Nenhum";
+    list = [];
+  for (var i = 0; i < scheduled.length; i++) {
+    list.add(scheduled[i]["timeIndex"]);
+  }
+  return timer[list.reduce((curr, next) => curr < next ? curr : next)];
+}

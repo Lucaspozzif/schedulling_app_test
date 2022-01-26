@@ -35,61 +35,63 @@ class _PerfilState extends State<Perfil> {
             color: Colors.black54,
           )),
       bottomNavigationBar: MenuAbrir(),
-      body: SingleChildScrollView(
-        physics: ScrollPhysics(),
-        child: Container(
-          color: Colors.purple.shade100,
-          child: Column(
-            children: [
-              Menu(),
-              SizedBox(
-                height: 60,
-              ),
-              Icon(
-                Icons.account_circle,
-                size: 150,
-                color: Colors.black54,
-              ),
-              SizedBox(
-                height: 60,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.white70,
-                    fixedSize: Size(100, 40),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40))),
-                onPressed: () {},
-                child: Text(
-                  "Entrar",
-                  style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: ScrollPhysics(),
+          child: Container(
+            color: Colors.purple.shade100,
+            child: Column(
+              children: [
+                Menu(),
+                SizedBox(
+                  height: 60,
                 ),
-              ),
-              SizedBox(width: 20,),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    primary: Colors.white70,
-                    fixedSize: Size(100, 40),
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40))),
-                onPressed: () {},
-                child: Text(
-                  "Login",
-                  style: TextStyle(
-                      color: Colors.black87,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600),
+                Icon(
+                  Icons.account_circle,
+                  size: 150,
+                  color: Colors.black54,
                 ),
-              ),],
-              ),
-              SizedBox(height: 400,)
-              
-            ],
+                SizedBox(
+                  height: 60,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.white70,
+                      fixedSize: Size(100, 40),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40))),
+                  onPressed: () {},
+                  child: Text(
+                    "Entrar",
+                    style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+                SizedBox(width: 20,),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      primary: Colors.white70,
+                      fixedSize: Size(100, 40),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(40))),
+                  onPressed: () {},
+                  child: Text(
+                    "Login",
+                    style: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),],
+                ),
+                SizedBox(height: 600,)
+                
+              ],
+            ),
           ),
         ),
       ),
