@@ -504,7 +504,7 @@ class _FinishedScheduleState extends State<FinishedSchedule> {
               },
               child: Text(
                 "Cancelar",
-                style: TextStyle(color: Colors.black87, fontSize: 20),
+                style: TextStyle(color: Colors.black87, fontSize: 20)
               ),
             ),
           ],

@@ -132,7 +132,7 @@ class _ShopState extends State<Shop> {
                         primary: Colors.white70,
                         fixedSize: Size(150, 100),
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5))),
+                            borderRadius: BorderRadius.circular(5)),),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

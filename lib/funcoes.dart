@@ -60,7 +60,7 @@ List randomColors = [
   Colors.yellow,
   Colors.green,
   Colors.purple,
-  Colors.orange,
+  Colors.orange
 ];
 
 getTime() {

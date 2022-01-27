@@ -44,7 +44,7 @@ class _PerfilState extends State<Perfil> {
               children: [
                 Menu(),
                 SizedBox(
-                  height: 60,
+                  height: 60
                 ),
                 Icon(
                   Icons.account_circle,

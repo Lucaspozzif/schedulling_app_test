@@ -235,7 +235,7 @@ class _RatesState extends State<Rates> {
                     ],
                   ),
                   SizedBox(
-                    width: 5,
+                    width: 5
                   ),
                   ElevatedButton(
                     onPressed: () {

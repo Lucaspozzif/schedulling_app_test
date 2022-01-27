@@ -19,7 +19,7 @@ void main() {
     theme: ThemeData(
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        foregroundColor: Colors.black
       ),
     ),
   ));
