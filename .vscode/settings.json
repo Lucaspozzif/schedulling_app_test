@@ -1,3 +1,4 @@
 {
-    "discord.enabled": true
+    "discord.enabled": true,
+    "test":"True: Scope Line will start from the ending bracket position. False: Scope Line will always be at column 0"
 }
